@@ -1,3 +1,5 @@
+# Rainer Schuster (http://github.com/schuster-rainer/posh-spice)
+
 filter highlight{
     param(
         [string]$pattern=$(throw "regular expression required"),
@@ -35,8 +37,4 @@ filter highlight{
 
     [console]::ForegroundColor = $default_foreground; 
     #[console]::BackgroundColor = $default_background;
-}
-
-filter grep {
-    
 }

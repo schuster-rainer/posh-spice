@@ -47,13 +47,13 @@ function Write-ScmPrompt([string]$scm, [string]$branch, [hashtable]$status) {
     Write-Host $(get-location) -nonewline -foregroundcolor Green
     Write-Host(' [') -nonewline -foregroundcolor Magenta
     Write-Host($branch) -nonewline -foregroundcolor Magenta
-    Write-Host(' A:' + $status["added"]) -nonewline -foregroundcolor Magenta 
-    Write-Host(' M:' + $status["modified"]) -nonewline -foregroundcolor Magenta
-    Write-Host(' D:' + $status["deleted"]) -nonewline -foregroundcolor Magenta
-    if ($status["missing"] -eq $TRUE) {
+    Write-Host(' +:' + $status["added"]) -nonewline -foregroundcolor Magenta 
+    Write-Host(' ~:' + $status["modified"]) -nonewline -foregroundcolor Magenta
+    Write-Host(' -:' + $status["deleted"]) -nonewline -foregroundcolor Magenta
+    if ($status["missing"] -ne $null) {
         Write-Host(' !:' + $status["missing"]) -nonewline -foregroundcolor Magenta
     }
-    if ($status["untracked"] -eq $TRUE) {
+    if ($status["untracked"] -ne $null) {
         Write-Host(' ?:' + $status["untracked"]) -nonewline -foregroundcolor Magenta        
     }
     Write-Host(']') -foregroundcolor Magenta 

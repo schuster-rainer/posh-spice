@@ -1,3 +1,5 @@
+# Rainer Schuster (http://github.com/schuster-rainer/posh-spice)
+
 new-alias sign $scripts\add-signature.ps1
 new-alias linqpad $tools\LINQPad_NET40\LINQPad.exe
 new-alias wing $env:ProgramFiles\"Wing IDE 3.2"\bin\wing.exe
@@ -11,6 +13,10 @@ set-alias lsc Get-ChildItemColor
 #find-to-set-alias 'c:\windows\system32\WindowsPowerShell\v1.0\' PowerShell_ISE.exe psise 
 set-alias ai assembly-info
  
+new-alias yEd call-yEditor
+function call-yEditor {
+    java.exe -jar (Resolve-Path $tools\yEd*\yed.jar)
+}
 function Get-ChildItemColor {
     $fore = $Host.UI.RawUI.ForegroundColor
  

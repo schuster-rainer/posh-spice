@@ -42,10 +42,10 @@ function Get-GitStatus {
             $untracked += 1
         }        
     }
-    return @{"untracked" = $untracked;
+    return @{#"untracked" = $untracked;
              "added" = $added;
              "modified" = $modified;
-             "deleted" = $deleted;
-             "missing" = $missing
+             "deleted" = $deleted
+             #"missing" = $missing
              }
 }
