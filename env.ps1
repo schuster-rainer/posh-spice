@@ -15,7 +15,8 @@ set-variable prj106rd ($projects + "106.ArrayMate\ArrayMate_R_D\") -Scope global
 set-variable prj110rd ($projects + "110.Produktion_Auto\VM2009\") -Scope global -Option constant
 
 $tool_paths = @( (Join-Path $tools "\Java\bin"),
-                 (Join-Path $tools "\PortableGit-1.6.5.1-preview20091022\cmd")
+                 (Join-Path $tools "\PortableGit-1.6.5.1-preview20091022\cmd"),
+                 (Join-Path $tools "\putty\")
                )
 $tool_paths | foreach { $env:path += ";$_" }
 

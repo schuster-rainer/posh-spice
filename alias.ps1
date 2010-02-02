@@ -2,11 +2,13 @@
 
 new-alias sign $scripts\add-signature.ps1
 new-alias linqpad $tools\LINQPad_NET40\LINQPad.exe
-new-alias wing $env:ProgramFiles\"Wing IDE 3.2"\bin\wing.exe
 new-alias outlook-send $scripts\outlook-send.ps1
 new-alias reflector $tools\Reflector\reflector.exe
 new-alias git-bash (Resolve-Path "$tools\*Portable*GIT*\git-bash.bat")
 new-alias gb git-bash
+
+new-alias wing $env:ProgramFiles\"Wing IDE 3.2"\bin\wing.exe
+
 #remove-item alias:ls
 set-alias lsc Get-ChildItemColor
 
