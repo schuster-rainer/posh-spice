@@ -17,6 +17,8 @@ new-alias dpw dependency-walker
 new-alias zoomit (Join-Path $tools "ZoomIt\ZoomIt.exe")
 new-alias wing $env:ProgramFiles\"Wing IDE 3.2"\bin\wing.exe
 new-alias graphviz (Join-Path $tools "Graphviz2.24\bin\dot.exe")
+new-alias eclipse (Join-Path $tools "eclipse\eclipse.exe")
+new-alias psi powershell_ise.exe
 
 new-alias yEd call-yEditor
 
