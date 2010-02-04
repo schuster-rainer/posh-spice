@@ -31,5 +31,5 @@ set-variable prj110rd (Join-Path $projects "110.Produktion_Auto\VM2009\") -Scope
 if ($profile -match "ISE") {
     . $scripts\darktheme.ps1
 }
-    
-Write-Host "Environment for $computerName set" -ForegroundColor cyan
+cls   
+Write-Host "Environment for $computerName set" -ForegroundColor Yellow
