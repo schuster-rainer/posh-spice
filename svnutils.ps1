@@ -4,7 +4,7 @@
 # Mark Embling (http://www.markembling.info/view/my-ideal-powershell-prompt-with-git-integration)
 
 
-function isCurrentDirectorySvnRepository {
+function isCurrentDirectorySubversionRepository {
     if ((Test-Path ".svn") -eq $TRUE) {
         return $TRUE
     }
@@ -23,12 +23,12 @@ function isCurrentDirectorySvnRepository {
     return $FALSE
 }
 
-function Get-SvnRevision {
+function Get-SubversionRevision {
     $dir_info = ([xml](svn info --xml))
     $dir_info.info.entry.revision
 }
 
-function Get-SvnBranch {
+function Get-SubversionBranch {
     $dir_info = ([xml](svn info --xml))
     $url = $dir_info.info.entry.url
     $root = $dir_info.info.entry.repository.root
@@ -36,7 +36,7 @@ function Get-SvnBranch {
     return $url -replace $root, ""
 }
 
-function Get-SvnStatus {
+function Get-SubversionStatus {
     $status = (svn status)
     $untracked = 0
     $added = 0

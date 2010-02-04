@@ -4,7 +4,7 @@
 # Mark Embling (http://www.markembling.info/view/my-ideal-powershell-prompt-with-git-integration)
 
 
-function isCurrentDirectoryBzrRepository {
+function isCurrentDirectoryBazarRepository {
     if ((Test-Path ".bzr") -eq $TRUE) {
         return $TRUE
     }
@@ -26,11 +26,13 @@ function isCurrentDirectoryBzrRepository {
 # Get the current branch
 function Get-BazarBranch {
     $currentBranch = ''
-    hg branch | foreach {
-        $currentBranch += $_
-    }
-   # Write-Host($currentBranch)
-    return $currentBranch
+    bzr info | foreach {
+        if ($_ -match "?:(parent branch: )(?:<server>.*/)(?:<parent>~.*/)(?<branch>.*/)") {
+            $currentBranch = $matches["branch"].TrimEnd("/")
+        }        
+   }
+   return $currentBranch
+    #return bzr nick
 }
 
 # Extracts status details about the repo
@@ -41,28 +43,34 @@ function Get-BazarStatus {
     $deleted = 0
     $missing = 0
     
-    $output = bzr status
-    
-    #$branchbits = $output[0].Split(' ')
-    #$branch = $branchbits[$branchbits.length - 1]
-    
-   # Write-Host($output)    
+    $output = bzr status -S
+    #we'll receive a 3 column layout with the status information.
+    #for detailed information about the flags use command "bzr help status-flags"
+  
+    # Write-Host($output)    
     $output | foreach {
-        if ($_ -match "^R") {
+        if ($_.Length -ge 3) {
+
+        $version_change = $_.Chars(0)
+        $content_change = $_.Chars(1)
+        $execution_change = $_.Chars(2)
+        
+        if ($content_change -eq "D") {
             $deleted += 1
         }
-        elseif ($_ -match "^M") {
+        elseif ($content_change -eq "M") {
             $modified += 1
         }
-        elseif ($_ -match "^A") {
+        elseif ($content_change -eq "N") {
             $added += 1
         }
-        elseif ($_ -match "^\!") {
+        elseif ($version_change -eq "X") {
             $missing += 1
         }
-        elseif ($_ -match "^\?") {
+        elseif ($version_change -eq "?") {
             $untracked += 1
-        }        
+        }
+    }
     }
     
     return @{"untracked" = $untracked;

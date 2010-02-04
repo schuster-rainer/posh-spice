@@ -22,10 +22,10 @@ $CurrentUser.Groups | %{
 function prompt {
     # Fun stuff if using the standard PowerShell prompt; not useful for Console2.
     # This, and the variables above, could be commented out.
+	$host.ui.rawui.foregroundcolor = "White"
     Write-Host("")
     if($UserType -eq "admin") {
         $host.ui.rawui.windowtitle = "" + $(get-location) + " : admin"
-        $host.ui.rawui.foregroundcolor = "white"
     }
     else {
        $host.ui.rawui.windowtitle = $(get-location)
@@ -37,16 +37,15 @@ function prompt {
     elseif (isCurrentDirectoryMercurialRepository) {
         Write-ScmPrompt "HG" (get-MercurialBranch) (get-MercurialStatus)
     }
-    elseif (isCurrentDirectorySvnRepository) {
-        Write-ScmPrompt "SVN" (get-SvnBranch) (get-SvnStatus)
+    elseif (isCurrentDirectorySubversionRepository) {
+        Write-ScmPrompt "SVN" (get-SubversionBranch) (get-SubversionStatus)
     } 
-    #elseif (isCurrentDirectoryBazarRepository) {
-    #    Write-ScmPrompt "BZR" (get-BzrBranch) (get-BzrStatus)
-    #} 
+    elseif (isCurrentDirectoryBazarRepository) {
+        Write-ScmPrompt "BZR" (get-BazarBranch) (get-BazarStatus)
+    } 
     else {
-        Write-Host $(get-location) -foregroundcolor green
-        Write-Host ("PS " + $status_string + ">") `
-                    -nonewline -foregroundcolor green
+        Write-Host $(get-location) -foregroundcolor DarkRed
+        Write-Host ("PS >") -nonewline -foregroundcolor DarkRed
     }
     
     return " "

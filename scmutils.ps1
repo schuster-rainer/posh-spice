@@ -44,22 +44,22 @@ function vsh {
 }
 
 function Write-ScmPrompt([string]$scm, [string]$branch, [hashtable]$status) {
-    Write-Host $(get-location) -nonewline -foregroundcolor Green
-    Write-Host(' [') -nonewline -foregroundcolor Magenta
-    Write-Host($branch) -nonewline -foregroundcolor Magenta
-    Write-Host(' +:' + $status["added"]) -nonewline -foregroundcolor Magenta 
-    Write-Host(' ~:' + $status["modified"]) -nonewline -foregroundcolor Magenta
-    Write-Host(' -:' + $status["deleted"]) -nonewline -foregroundcolor Magenta
+    Write-Host $(get-location) -nonewline -foregroundcolor DarkRed
+    Write-Host(' [') -nonewline -foregroundcolor Yellow
+    Write-Host($branch) -nonewline -foregroundcolor Yellow
+    Write-Host(' +:' + $status["added"]) -nonewline -foregroundcolor Yellow 
+    Write-Host(' ~:' + $status["modified"]) -nonewline -foregroundcolor Yellow
+    Write-Host(' -:' + $status["deleted"]) -nonewline -foregroundcolor Yellow
     if ($status["missing"] -ne $null) {
-        Write-Host(' !:' + $status["missing"]) -nonewline -foregroundcolor Magenta
+        Write-Host(' !:' + $status["missing"]) -nonewline -foregroundcolor Yellow
     }
     if ($status["untracked"] -ne $null) {
-        Write-Host(' ?:' + $status["untracked"]) -nonewline -foregroundcolor Magenta        
+        Write-Host(' ?:' + $status["untracked"]) -nonewline -foregroundcolor Yellow        
     }
-    Write-Host(']') -foregroundcolor Magenta 
-    Write-Host('PS ') -nonewline -foregroundcolor Green
-    Write-Host('[' + $scm + ']') -nonewline -foregroundcolor Magenta
-    Write-Host('>') -nonewline -foregroundcolor Green
+    Write-Host(']') -foregroundcolor Yellow 
+    Write-Host('PS ') -nonewline -foregroundcolor DarkRed
+    Write-Host('[' + $scm + ']') -nonewline -foregroundcolor Yellow
+    Write-Host('>') -nonewline -foregroundcolor DarkRed
 }
 
 function Get-RepositoryType {
