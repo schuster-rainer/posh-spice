@@ -1,14 +1,16 @@
 # (Distributed) Source Code Management functions
 # Rainer Schuster (http://github.com/schuster-rainer/posh-spice)
-# Some parts adopted from blog post of:
+# Parts adopted or copied from blog post of:
 # Mark Embling (http://www.markembling.info/view/my-ideal-powershell-prompt-with-git-integration)
+# and Jeremy Skinner (http://www.jeremyskinner.co.uk/2010/03/07/using-git-with-windows-powershell)
 
-. $scripts\hgutils.ps1
-. $scripts\gitutils.ps1
-. $scripts\svnutils.ps1
-. $scripts\bzrutils.ps1
+. (Join-Path $scripts hgutils.ps1)
+. (Join-Path $scripts gitutils.ps1)
+. (Join-Path $scripts svnutils.ps1)
+. (Join-Path $scripts bzrutils.ps1)
+
 #TODO:TFS
-#. $scripts\tfsutils.ps1
+#. (Join-Path $scripts tfsutils.ps1)
 
 # creating a function since set-alias can't pass piped parameters
 function aia {
@@ -17,30 +19,6 @@ function aia {
 
 function dc {
     git diff | out-colordiff
-}
-
-# Use VS to either open the passed solution or the first (only) solution in the
-# current directory.
-function vsh {
-    param ($param)
-    
-    if ($param -eq $NULL) {
-        "A solution was not specified, opening the first one found."
-        $solutions = get-childitem | ?{ $_.extension -eq ".sln" }
-    }
-    else {
-        "Opening {0} ..." -f $param
-        vs $param
-        break
-    }
-    if ($solutions.count -gt 1) {
-        "Opening {0} ..." -f $solutions[0].Name
-        vs $solutions[0].Name
-    }
-    else {
-        "Opening {0} ..." -f $solutions.Name
-        vs $solutions.Name
-    }
 }
 
 function Write-ScmPrompt([string]$scm, [string]$branch, [hashtable]$status) {
