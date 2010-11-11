@@ -1,10 +1,11 @@
 # Rainer Schuster (http://github.com/schuster-rainerpi/posh-spice)
 
 new-alias find-set-alias $(Join-Path $scripts "find-to-set-alias.ps1")
+find-set-alias (Join-Path $env:SystemDrive "Dev/Vim/Vim*") gvim.exe gvim
 
 find-set-alias (Join-Path $env:SystemDrive "Program Files*/SharpDevelop/3.0/bin") SharpDevelop.exe sd3
 find-set-alias (Join-Path $env:SystemDrive "Program Files*/SharpDevelop/4.0/bin") SharpDevelop.exe sd4
-find-set-alias (Join-Path $tools "*Git-1.7.1-*") git-bash.bat git-bash
+find-set-alias (Join-Path $tools "*Git-1.7.2.3-*") git-bash.bat git-bash
 find-set-alias (Join-Path $env:SystemDrive "Program Files*/Wing IDE*/bin") wing.exe wing
 find-set-alias (Join-Path $tools "Graphviz*/bin") dot.exe graphviz
 find-set-alias (Join-Path $tools "Skype*") portable-skype*.bat skype
@@ -12,15 +13,19 @@ find-set-alias (Join-Path $env:SystemDrive "Program Files*/Microsoft Visual Stud
 find-set-alias (Join-Path $env:SystemDrive "Program Files*/Microsoft Visual Studio 10.0/Common7/IDE") VCSExpress.exe vcs2010express
 find-set-alias (Join-Path $env:SystemDrive "Program Files*/Microsoft Visual Studio 10.0/Common7/IDE") devenv.exe vs2010
 find-set-alias (Join-Path $env:SystemDrive "Program Files*/Microsoft Office/Office*") EXCEL.exe excel
-find-set-alias (Join-Path $env:SystemDrive "Program Files*/Vim/Vim73") vim.exe vi
-find-set-alias (Join-Path $env:SystemDrive "Program Files*/Vim/Vim73") gvim.exe gvi
+find-set-alias (Join-Path $env:SystemDrive "Dev/Vim/Vim*") vim.exe vim
 find-set-alias (Join-Path $tools "vlc-*") vlc.exe vlc
 find-set-alias (Join-Path $tools "Portable_Firefox_4.0*") FirefoxLoader.exe ff4
+find-set-alias (Join-Path $tools "operausb*") opera.exe opera
 find-set-alias (Join-Path $env:SystemDrive "Program Files*/JetBrains/PyCharm*/bin") pycharm.exe pycharm
+find-set-alias (Join-Path $env:SystemDrive "Program Files*/Gallio/bin") Gallio.Icarus.exe icarus
+find-set-alias (Join-Path $env:SystemDrive "Program Files*/Reinteract/bin") Reinteract.exe reinteract
+
 
 
 new-alias sd4dbg (Join-Path $projects "OSS/SharpDevelop/bin/SharpDevelop.exe")
 new-alias eclipse (Join-Path $tools "eclipse-helios/eclipse.exe")
+new-alias eclipse-php (Join-Path $tools "eclipse-helios-php/eclipse.exe")
 new-alias linqpad20 (Join-Path $tools "LINQPad/LINQPad.exe")
 new-alias linqpad40 (Join-Path $tools "LINQPad_NET40/LINQPad.exe")
 new-alias sign $(Join-Path $scripts "add-signature.ps1")
@@ -45,9 +50,20 @@ new-alias yEd call-yEditor
 new-alias gcl Get-Clipboard
 new-alias scl Set-Clipboard
 new-alias gb git-bash
-set-alias sudo elevate-process;
 set-alias ai assembly-info
 new-alias wm writemonkey
+new-alias clj call-clojure
+new-alias cljclr (Join-Path $projects "oss/clojure-clr/Bin/4.0/Release/Clojure.Main.exe")
+#new-alias cljclr (Join-Path $tools "clojure-clr-1.2.0/Clojure.Main.exe")
+new-alias miranda (Join-Path $tools "miranda-im-v0.9.4-unicode/miranda32.exe")
+new-alias kaxaml (Join-Path $tools "Kaxaml/kaxaml.exe")
+new-alias python26 (Join-Path $env:SystemDrive "Python26/python.exe")
+new-alias pip26 (Join-Path $env:SystemDrive "Python26/Scripts/pip-2.6.exe")
+new-alias virtualenv26 (Join-Path $env:SystemDrive "Python26/Scripts/virtualenv.exe")
+new-alias wlw (Join-Path $tools "WindowsLiveWriter/WindowsLiveWriterPortable.exe")
+new-alias tagscan (Join-Path $tools "tagscan5.1.593/Tagscan.exe")
+new-alias foxit (Join-Path $tools "FoxitReaderPortable/FoxitReaderPortable.exe")
+
 
 remove-item alias:ls
 set-alias ls Get-ChildItemColor
@@ -58,8 +74,8 @@ function restart-network ([string]$name) {
     $adaptor.Enable()
 }
 
-function restart-wireless {
-    Invoke-Expression ("restart-networt '*Ultimate-N*'")
+function restart-wifi {
+    Invoke-Expression ("restart-network '*Ultimate-N*'")
 }
 
 function call-yEditor {
@@ -68,6 +84,27 @@ function call-yEditor {
 function call-gantProject {
     java.exe -jar (Join-Path (Join-Path $tools "gantproject*" -resolve) eclipsito.jar)
 }
+
+function call-clojure {
+    
+    ( (Join-Path $tools "clojure-1.2.0/clojure.jar"),
+      (Join-Path $tools "clojure-contrib-1.2.0/target/clojure-contrib-1.2.0.jar")
+    ) | foreach { $cp += ";$_" }
+
+    java -cp $cp clojure.main 
+}
+
+
+function nailgun {
+    
+#    ( (Join-Path $tools "clojure-1.2.0/clojure.jar"),
+#      (Join-Path $tools "clojure-contrib-1.2.0/target/clojure-contrib-1.2.0.jar"),
+#      (Join-Path $tools "vimclojure-2.1.2/build/vimclojure.jar")
+#    ) | foreach { $cp += ";$_" }
+
+     start-process gradle -ArgumentList "runNailgun --build-file $projectRoot\oss\vimclojure\build.gradle"
+}
+
 function Get-ChildItemColor {
     $fore = $Host.UI.RawUI.ForegroundColor
  
