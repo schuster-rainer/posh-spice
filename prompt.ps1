@@ -3,6 +3,7 @@
 # Adopted from Git version of:
 # Mark Embling (http://www.markembling.info/view/my-ideal-powershell-prompt-with-git-integration)
 
+. $scripts\env-scm.ps1
 . $scripts\scmutils.ps1
 
 # Add Git executables to the mix.
